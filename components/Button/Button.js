@@ -5,10 +5,12 @@ export default function Button({
     children,
     ...props
 }) {
-    <button
-        {...props}
-        className={styles.button}
-    >
-        {children}
-    </button>
+    return(
+        <button
+            {...props}
+            className={styles.button}
+        >
+            {children}
+        </button>
+    )
 }

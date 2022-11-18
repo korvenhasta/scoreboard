@@ -1,36 +1,48 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
-import Root from '../components/Root/Root'
-import Main from '../components/Main/Main'
-import Footer from '../components/Footer/Footer'
 import Button from '../components/Button/Button'
+import Title from '../components/Title/Title'
+import Paragraph from '../components/Paragraph/Paragraph'
+import Footer from '../components/Footer/Footer'
+
 
 export default function Home() {
   return (
-    <Root>
+    <div className={styles.container}>
       <Head>
         <title>Create Next App</title>
         <meta name="description" content="Score Board" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Main>
+      <main className={styles.main}>
+        <Title>
+          Score Board
+        </Title>
+        <Paragraph>
+          A journey of a 1000 miles starts with single step
+        </Paragraph>
+
+        <Paragraph>
+          0 / 100
+        </Paragraph>
+
         <Button>
-          Reset
+              Reset
         </Button>
-      </Main>
+      </main>
 
       <Footer>
-        Coded by{' '}
-        <a
-          href="https://github.com/korvenhasta"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          {' '}Marina Kenina
-        </a>
-      </Footer>
-    </Root>
+          Coded by{' '}
+          <a
+            href="https://github.com/korvenhasta"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {' '}Marina Kenina
+          </a>
+        </Footer>
+    </div>
   )
 }
