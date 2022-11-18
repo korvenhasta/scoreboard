@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
@@ -9,8 +10,25 @@ import Label from '../components/Label/Label'
 import Progress from '../components/Progress/Progress'
 import Footer from '../components/Footer/Footer'
 
+const initialState = 0;
 
 export default function Home() {
+
+  let [counter, setCounter] = useState(initialState);
+
+
+  function increaseScore(){
+    setCounter(counter + 1)
+  }
+
+  function decreaseScore(){
+    setCounter(counter - 1)
+  }
+
+  function resetScore() {
+    setCounter(initialState)
+  }
+
   return (
     <div className={styles.container}>
       <Head>
@@ -23,45 +41,30 @@ export default function Home() {
         <Title>
           Score Board
         </Title>
-        <Paragraph>
-          A journey of a 1000 miles starts with single step
-        </Paragraph>
 
-        <Label for="scoreProgress"></Label>
-        <Progress id="scoreProgress" value="32" max="100"></Progress>
-
-        <Paragraph>
-          0 / 100
-        </Paragraph>
+        <Label></Label>
+        <Progress value={counter} max="100"></Progress>
 
         <ButtonContainer>
-          <Button>
-            -50%
-          </Button>
+          <Paragraph>A journey of a 1000 miles starts with single step</Paragraph>
+          <Paragraph>{counter} / 100</Paragraph>
+        </ButtonContainer>
 
-          <Button>
-            -5
-          </Button>
 
-          <Button>
-            -1
-          </Button>
+        <ButtonContainer>
+          <Button>-50%</Button>
 
-          <Button>
-            Reset
-          </Button>
+          <Button>-5</Button>
 
-          <Button>
-            +1
-          </Button>
+          <Button onClick={decreaseScore} disabled={counter <= 0}>-1</Button>
 
-          <Button>
-            +5
-          </Button>
+          <Button onClick={resetScore}>Reset</Button>
 
-          <Button>
-            +50%
-          </Button>
+          <Button onClick={increaseScore}>+1</Button>
+
+          <Button>+5</Button>
+
+          <Button>+50%</Button>
         </ButtonContainer>
 
       </main>
