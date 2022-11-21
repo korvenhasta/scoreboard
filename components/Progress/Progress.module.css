@@ -1,6 +1,36 @@
-.progress {
+.progress[value] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+
     width: 1024px;
     height: 35px;
     margin: 0 15px;
-    background: #1aae9f;
 }
+
+.progress[value]::-webkit-progress-bar {
+    background-color: #eee;
+    border-radius: 2px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25) inset;
+  }
+
+.progress[value]::-webkit-progress-value {
+    background-color: #1aae9f;
+    border-radius: 2px; 
+    background-size: 35px 20px, 100% 100%, 100% 100%;
+  }
+
+.progress[value]::-webkit-progress-value::before {
+    content: '10';
+    background-color: #d3455a;
+}
+
+.progress[value]::-webkit-progress-value::before {
+    content: '45';
+    background-color: #f7c225;
+}
+
+/* .progress[value]::-webkit-progress-value::after {
+    content: '45';
+    background-color: #1aae9f;
+  } */

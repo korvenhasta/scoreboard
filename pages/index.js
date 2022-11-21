@@ -26,10 +26,10 @@ export default function Home() {
     if (score === 0) {
       return "A journey of a 1000 miles starts with single step"
     }
-    else if (score > 0 &&  score <= 10) {
+    else if (score > 0 && score <= 10) {
       return "C'mon you can do it"
     }
-    else if (score > 10 &&  score <= 45) {
+    else if (score > 10 && score <= 45) {
       return "You're getting there"
     }
     else {
@@ -37,22 +37,9 @@ export default function Home() {
     }
   }
 
-  function decreaseScoreByOne(){
-    setCounter(counter - 1)
-  }
-
-  function increaseScoreByFive(){
-    setCounter(counter + 5)
-  }
-
-  function decreaseScoreByFive(){
-    setCounter(counter - 5)
-  }
-
   // Change score
   function changeScore(changeBy) {
-    console.log("Change by: ", changeBy)
-    setCounter(counter + changeBy)
+      setCounter(counter + changeBy)
   }
 
   // +50%
@@ -104,15 +91,15 @@ export default function Home() {
         <ButtonContainer>
           <Button onClick={minusFiftyPercent} disabled={counter <= 0}>-50%</Button>
 
-          <Button onClick={decreaseScoreByFive} disabled={counter <= 0}>-5</Button>
+          <Button onClick={() => changeScore(-5)} disabled={counter <= 0}>-5</Button>
 
-          <Button onClick={decreaseScoreByOne} disabled={counter <= 0}>-1</Button>
+          <Button onClick={() => changeScore(-1)} disabled={counter <= 0}>-1</Button>
 
           <Button onClick={resetScore} disabled={counter === 0}>Reset</Button>
 
           <Button onClick={() => changeScore(1)} disabled={counter === 100}>+1</Button>
 
-          <Button onClick={increaseScoreByFive} disabled={counter === 100}>+5</Button>
+          <Button onClick={() => changeScore(5)} disabled={counter === 100}>+5</Button>
 
           <Button onClick={addFiftyPercent} disabled={counter === 0}>+50%</Button>
         </ButtonContainer>
