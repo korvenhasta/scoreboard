@@ -25,27 +25,8 @@ function displayMessage(score) {
 export default function Scoreboard(props) {
   const [score, setScore] = useState(initialState);
 
-  // Reset score
-  function resetScore() {
-    updateScore(initialState);
-  }
-
-  // Change score
-  function changeScore(changeBy) {
-    updateScore(score + changeBy);
-  }
-
-  // +50%
-  function addFiftyPercent() {
-    updateScore(Math.round(score * 1.5));
-  }
-
-  // -50%
-  function minusFiftyPercent() {
-    updateScore(Math.round(score * 0.5));
-  }
-
-  function updateScore(newScore) {
+  function updateScore(scoreFunc) {
+    let newScore = scoreFunc(score);
     if (newScore > 100) {
       newScore = 100;
     }
@@ -57,10 +38,7 @@ export default function Scoreboard(props) {
   }
 
   return (
-    <div
-      // {...props}
-      className={styles.scoreboard}
-    >
+    <div className={styles.scoreboard}>
       <ButtonContainer>
         <Title>{props.playerName}</Title>
         <Button
@@ -82,32 +60,47 @@ export default function Scoreboard(props) {
       </ButtonContainer>
 
       <ButtonContainer>
-        <Button onClick={minusFiftyPercent} disabled={score <= 1}>
+        <Button
+          onClick={() => updateScore((res) => Math.round(res * 0.5))}
+          disabled={score <= 1}
+        >
           -50%
         </Button>
 
-        <Button onClick={() => changeScore(-5)} disabled={score <= 0}>
+        <Button
+          onClick={() => updateScore((res) => res - 5)}
+          disabled={score <= 0}
+        >
           -5
         </Button>
 
-        <Button onClick={() => changeScore(-1)} disabled={score <= 0}>
+        <Button
+          onClick={() => updateScore((res) => res - 1)}
+          disabled={score <= 0}
+        >
           -1
         </Button>
 
-        <Button onClick={resetScore} disabled={score === 0}>
+        <Button onClick={() => updateScore(() => 0)} disabled={score === 0}>
           Reset
         </Button>
 
-        <Button onClick={() => changeScore(1)} disabled={score === 100}>
+        <Button
+          onClick={() => updateScore((res) => res + 1)}
+          disabled={score === 100}
+        >
           +1
         </Button>
 
-        <Button onClick={() => changeScore(5)} disabled={score === 100}>
+        <Button
+          onClick={() => updateScore((res) => res + 5)}
+          disabled={score === 100}
+        >
           +5
         </Button>
 
         <Button
-          onClick={addFiftyPercent}
+          onClick={() => updateScore((res) => Math.round(res * 1.5))}
           disabled={score === 0 || score >= 100}
         >
           +50%
