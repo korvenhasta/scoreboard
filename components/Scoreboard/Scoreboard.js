@@ -34,7 +34,7 @@ export default function Scoreboard(props) {
       newScore = 0;
     }
     setScore(newScore);
-    props.handleScore(props.playerName, newScore);
+    props.handleScore(props.playerId, newScore);
   }
 
   return (
@@ -44,7 +44,7 @@ export default function Scoreboard(props) {
         <Button
           variant={"button_delete"}
           onClick={() => {
-            props.handleDeletePlayer(props.playerName);
+            props.handleDeletePlayer(props.playerId);
           }}
         >
           Delete

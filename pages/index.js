@@ -13,27 +13,30 @@ export default function Home() {
 
   const [playerName, setPlayerName] = useState("");
 
+  const [playerId, setPlayerId] = useState(0);
+
   function handleSubmit(event) {
     event.preventDefault();
-    setPlayers([...players, { name: playerName, score: 0 }]);
+    setPlayers([...players, { id: playerId, name: playerName, score: 0 }]);
     setPlayerName("");
+    setPlayerId(playerId + 1);
   }
 
   function handleChange(event) {
     setPlayerName(event.target.value);
   }
 
-  function handleDeletePlayer(playerName) {
+  function handleDeletePlayer(playerId) {
     setPlayers(
       players.filter((player) => {
-        return player.name != playerName;
+        return player.id != playerId;
       })
     );
   }
 
-  function handleScore(playerName, playerScore) {
+  function handleScore(playerId, playerScore) {
     let updatedPlayer = players.find((player) => {
-      return player.name === playerName;
+      return player.id === playerId;
     });
     updatedPlayer.score = playerScore;
     setPlayers([...players]);
@@ -63,7 +66,8 @@ export default function Home() {
           .map((player) => (
             <Scoreboard
               playerName={player.name}
-              key={player.name}
+              playerId={player.id}
+              key={player.id}
               handleDeletePlayer={handleDeletePlayer}
               handleScore={handleScore}
             />
