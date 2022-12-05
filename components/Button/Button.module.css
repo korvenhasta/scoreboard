@@ -14,3 +14,11 @@
 .button:disabled {
     background-color: grey;
 }
+
+/* Variants */
+
+/* Delete */
+.button_delete {
+    background: #d3455a;
+    color: #FFFFFF;
+}

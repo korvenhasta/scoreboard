@@ -23,36 +23,37 @@ function displayMessage(score) {
 }
 
 export default function Scoreboard(props) {
-  let [counter, setCounter] = useState(initialState);
+  const [score, setScore] = useState(initialState);
 
   // Reset score
   function resetScore() {
-    setCounter(initialState);
+    updateScore(initialState);
   }
 
   // Change score
   function changeScore(changeBy) {
-    if (changeBy >= 0) {
-      setCounter(Math.min(counter + changeBy, 100));
-    } else {
-      setCounter(Math.max(counter + changeBy, 0));
-    }
+    updateScore(score + changeBy);
   }
 
   // +50%
   function addFiftyPercent() {
-    let res = Math.round(counter * 1.5);
-    if (res >= 100) {
-      setCounter(100);
-    } else {
-      setCounter(res);
-    }
+    updateScore(Math.round(score * 1.5));
   }
 
   // -50%
   function minusFiftyPercent() {
-    let res = Math.round(counter * 0.5);
-    setCounter(res);
+    updateScore(Math.round(score * 0.5));
+  }
+
+  function updateScore(newScore) {
+    if (newScore > 100) {
+      newScore = 100;
+    }
+    if (newScore < 0) {
+      newScore = 0;
+    }
+    setScore(newScore);
+    props.handleScore(props.playerName, newScore);
   }
 
   return (
@@ -60,43 +61,54 @@ export default function Scoreboard(props) {
       // {...props}
       className={styles.scoreboard}
     >
-      <Title>{props.player}</Title>
+      <ButtonContainer>
+        <Title>{props.playerName}</Title>
+        <Button
+          variant={"button_delete"}
+          onClick={() => {
+            props.handleDeletePlayer(props.playerName);
+          }}
+        >
+          Delete
+        </Button>
+      </ButtonContainer>
+
       <Label></Label>
-      <Progress value={counter} max="100"></Progress>
+      <Progress value={score} max="100"></Progress>
 
       <ButtonContainer>
-        <Paragraph>{displayMessage(counter)}</Paragraph>
-        <Paragraph>{counter} / 100</Paragraph>
+        <Paragraph>{displayMessage(score)}</Paragraph>
+        <Paragraph>{score} / 100</Paragraph>
       </ButtonContainer>
 
       <ButtonContainer>
-        <Button onClick={minusFiftyPercent} disabled={counter <= 1}>
+        <Button onClick={minusFiftyPercent} disabled={score <= 1}>
           -50%
         </Button>
 
-        <Button onClick={() => changeScore(-5)} disabled={counter <= 0}>
+        <Button onClick={() => changeScore(-5)} disabled={score <= 0}>
           -5
         </Button>
 
-        <Button onClick={() => changeScore(-1)} disabled={counter <= 0}>
+        <Button onClick={() => changeScore(-1)} disabled={score <= 0}>
           -1
         </Button>
 
-        <Button onClick={resetScore} disabled={counter === 0}>
+        <Button onClick={resetScore} disabled={score === 0}>
           Reset
         </Button>
 
-        <Button onClick={() => changeScore(1)} disabled={counter === 100}>
+        <Button onClick={() => changeScore(1)} disabled={score === 100}>
           +1
         </Button>
 
-        <Button onClick={() => changeScore(5)} disabled={counter === 100}>
+        <Button onClick={() => changeScore(5)} disabled={score === 100}>
           +5
         </Button>
 
         <Button
           onClick={addFiftyPercent}
-          disabled={counter === 0 || counter >= 100}
+          disabled={score === 0 || score >= 100}
         >
           +50%
         </Button>
