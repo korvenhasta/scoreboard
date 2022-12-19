@@ -15,19 +15,19 @@
   }
 
 .progress[value]::-webkit-progress-value {
-    background-color: #1aae9f;
+    background: #1aae9f;
     border-radius: 2px; 
-    background-size: 35px 20px, 100% 100%, 100% 100%;
+    background-size: 35px 20px;
   }
 
 .progress[value]::-webkit-progress-value::before {
     content: '10';
-    background-color: #d3455a;
+    background: #d3455a;
 }
 
 .progress[value]::-webkit-progress-value::before {
     content: '45';
-    background-color: #f7c225;
+    background: #f7c225;
 }
 
 /* .progress[value]::-webkit-progress-value::after {
